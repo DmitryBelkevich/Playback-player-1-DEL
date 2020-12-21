@@ -1,0 +1,3 @@
+rootProject.name = "Playback-player"
+
+include ':app'
