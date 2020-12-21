@@ -1,14 +1,15 @@
-package com.hard.playback_player;
+package com.hard.playback_player.activities.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.github.barteksc.pdfviewer.PDFView;
+import com.hard.playback_player.R;
+import com.hard.playback_player.activities.SongActivity;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 

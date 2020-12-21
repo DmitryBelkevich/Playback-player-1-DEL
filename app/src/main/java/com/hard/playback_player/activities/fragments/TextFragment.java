@@ -1,19 +1,25 @@
-package com.hard.playback_player;
+package com.hard.playback_player.activities.fragments;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
+import com.hard.playback_player.R;
+import com.hard.playback_player.activities.SongActivity;
+import com.hard.playback_player.models.Song;
+import com.hard.playback_player.settings.Constants;
+import com.hard.playback_player.utils.Reader;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PlayerFragment#newInstance} factory method to
+ * Use the {@link TextFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayerFragment extends Fragment {
+public class TextFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,7 +29,7 @@ public class PlayerFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PlayerFragment() {
+    public TextFragment() {
         // Required empty public constructor
     }
 
@@ -33,11 +39,11 @@ public class PlayerFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayerFragment.
+     * @return A new instance of fragment TextFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlayerFragment newInstance(String param1, String param2) {
-        PlayerFragment fragment = new PlayerFragment();
+    public static TextFragment newInstance(String param1, String param2) {
+        TextFragment fragment = new TextFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -56,8 +62,22 @@ public class PlayerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_player, container, false);
+        View view = inflater.inflate(R.layout.fragment_text, container, false);
+
+        load(view);
 
         return view;
+    }
+
+    private void load(View view) {
+        SongActivity activity = (SongActivity) getActivity();
+        Song song = activity.getSong();
+        String textPath = song.getTextPath();
+
+        TextView textView = view.findViewById(R.id.songText);
+
+        String text = Reader.read(Constants.STORAGE + textPath);
+
+        textView.setText(text);
     }
 }

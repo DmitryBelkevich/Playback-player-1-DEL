@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Playbackplayer">
 
-        <activity android:name=".PlaylistActivity">
+        <activity android:name=".activities.PlaylistActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,8 +21,8 @@
         </activity>
 
         <activity
-            android:name=".SongActivity"
-            android:parentActivityName=".PlaylistActivity"></activity>
+            android:name=".activities.SongActivity"
+            android:parentActivityName=".activities.PlaylistActivity"></activity>
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.hard.playback_player;
+package com.hard.playback_player.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.hard.playback_player.R;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.services.SongService;
 import com.hard.playback_player.storage.Database;

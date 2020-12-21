@@ -1,4 +1,4 @@
-package com.hard.playback_player;
+package com.hard.playback_player.activities;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,6 +17,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.hard.playback_player.R;
+import com.hard.playback_player.activities.fragments.PlayerFragment;
+import com.hard.playback_player.activities.fragments.ScoreFragment;
+import com.hard.playback_player.activities.fragments.TextFragment;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 
