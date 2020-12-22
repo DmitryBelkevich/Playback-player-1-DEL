@@ -8,6 +8,8 @@ import com.hard.playback_player.settings.Constants;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,8 +36,9 @@ public class DatabaseInitializer {
                 String fullSongTitle = bandsFolders[i].listFiles()[j].getName();
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
-                File currentSongFolder = bandsFolders[i].listFiles()[j];
-                File[] scoresFiles = currentSongFolder.listFiles(new FilenameFilter() {
+                File[] songsFolders = bandsFolders[i].listFiles();
+                File songFolder = songsFolders[j];
+                File[] scoresFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
                         return name.toLowerCase().endsWith(".pdf");
