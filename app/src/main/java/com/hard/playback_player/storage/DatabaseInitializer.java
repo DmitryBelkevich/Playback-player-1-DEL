@@ -7,7 +7,6 @@ import com.hard.playback_player.settings.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,14 +34,14 @@ public class DatabaseInitializer {
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
                 File current_song_folder = bands_folders[i].listFiles()[j];
-                File[] parts_folders = current_song_folder.listFiles();
+                File[] scores_folders = current_song_folder.listFiles();
 
                 Map<String, String> scores = new HashMap<>();
-                for (int k = 0; k < parts_folders.length; k++) {
-                    File part_folder = parts_folders[k];
-                    String part = part_folder.getName().substring(fullSongTitle.length() + 3);
+                for (int k = 0; k < scores_folders.length; k++) {
+                    File score_folder = scores_folders[k];
+                    String scoreTitle = score_folder.getName().substring(fullSongTitle.length() + 3);
 
-                    scores.put(part, null);
+                    scores.put(scoreTitle, null);
                 }
 
                 Song song = new SongBuilder()
