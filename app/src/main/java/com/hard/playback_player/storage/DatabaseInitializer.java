@@ -6,6 +6,7 @@ import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +35,17 @@ public class DatabaseInitializer {
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
                 File currentSongFolder = bandsFolders[i].listFiles()[j];
-                File[] scoreFolders = currentSongFolder.listFiles();
+                File[] scoresFolders = currentSongFolder.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".pdf");
+                    }
+                });
 
                 Map<String, String> scores = new HashMap<>();
-                for (int k = 0; k < scoreFolders.length; k++) {
-                    File score_folder = scoreFolders[k];
-                    String scoreTitle = score_folder.getName().substring(fullSongTitle.length() + 3);
+                for (int k = 0; k < scoresFolders.length; k++) {
+                    File scoreFolder = scoresFolders[k];
+                    String scoreTitle = scoreFolder.getName().substring(fullSongTitle.length() + 3);
 
                     scores.put(scoreTitle, null);
                 }
