@@ -14,6 +14,8 @@ import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 import com.hard.playback_player.utils.Reader;
 
+import java.io.FileNotFoundException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TextFragment#newInstance} factory method to
@@ -76,8 +78,12 @@ public class TextFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.songText);
 
-        String text = Reader.read(Constants.STORAGE + textPath);
-
-        textView.setText(text);
+        String text = null;
+        try {
+            text = Reader.read(Constants.STORAGE + textPath);
+            textView.setText(text);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

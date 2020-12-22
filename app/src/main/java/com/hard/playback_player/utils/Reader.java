@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    public static String read(String path) {
+    public static String read(String path) throws FileNotFoundException {
         StringBuilder stringBuilder = new StringBuilder();
 
         FileReader fileReader = null;
@@ -15,6 +15,7 @@ public class Reader {
             fileReader = new FileReader(new File(path));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
         }
 
         BufferedReader bufferedReader = new BufferedReader(fileReader);
