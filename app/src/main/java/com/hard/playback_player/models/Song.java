@@ -1,10 +1,12 @@
 package com.hard.playback_player.models;
 
+import java.util.Map;
+
 public class Song extends AbstractModel {
     private Band band;
     private String title;
     private String textPath;
-    private String scorePath;
+    private Map<String, String> scoresPaths;
     private String soundPath;
 
     public Band getBand() {
@@ -31,12 +33,12 @@ public class Song extends AbstractModel {
         this.textPath = textPath;
     }
 
-    public String getScorePath() {
-        return scorePath;
+    public Map<String, String> getScoresPaths() {
+        return scoresPaths;
     }
 
-    public void setScorePath(String scorePath) {
-        this.scorePath = scorePath;
+    public void setScoresPaths(Map<String, String> scoresPaths) {
+        this.scoresPaths = scoresPaths;
     }
 
     public String getSoundPath() {
@@ -45,12 +47,5 @@ public class Song extends AbstractModel {
 
     public void setSoundPath(String soundPath) {
         this.soundPath = soundPath;
-    }
-
-    @Override
-    public String toString() {
-        return "Song{" +
-                ", title='" + title + '\'' +
-                '}';
     }
 }

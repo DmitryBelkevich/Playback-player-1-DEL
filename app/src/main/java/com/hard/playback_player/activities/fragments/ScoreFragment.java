@@ -14,6 +14,7 @@ import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 
 import java.io.File;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,7 +74,9 @@ public class ScoreFragment extends Fragment {
     private void load(View view) {
         SongActivity activity = (SongActivity) getActivity();
         Song song = activity.getSong();
-        String scorePath = song.getScorePath();
+        Map<String, String> scoresPaths = song.getScoresPaths();
+
+        String scorePath = scoresPaths.get("Full Score");
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 

@@ -3,6 +3,10 @@ package com.hard.playback_player.builders;
 import com.hard.playback_player.models.Band;
 import com.hard.playback_player.models.Song;
 
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 public class SongBuilder {
     private Song song;
 
@@ -25,16 +29,21 @@ public class SongBuilder {
         return this;
     }
 
+    public SongBuilder buildScoresPaths(Map<String, String> scoresPaths) {
+        song.setScoresPaths(scoresPaths);
+        return this;
+    }
+
     public Song build() {
-        song.setTextPath(generateTextPath(song));
-        song.setScorePath(generateScorePath(song));
-        song.setSoundPath(generateMp3Path(song));
+        song.setTextPath(generateTextPath());
+        song.setScoresPaths(generateScoresPaths());
+        song.setSoundPath(generateMp3Path());
 
         return song;
     }
 
-    private static String generateTextPath(Song song) {
-        String path = generatePath(song);
+    private String generateTextPath() {
+        String path = generatePath();
 
         StringBuilder stringBuilder = new StringBuilder(path);
 
@@ -43,20 +52,30 @@ public class SongBuilder {
         return stringBuilder.toString();
     }
 
-    private static String generateScorePath(Song song) {
-        String path = generatePath(song);
+    private Map<String, String> generateScoresPaths() {
+        Map<String, String> scoresPaths = song.getScoresPaths();
 
-        StringBuilder stringBuilder = new StringBuilder(path);
+        String path = generatePath();
 
-        stringBuilder.append(" - ");
-        stringBuilder.append("Full Score");
-        stringBuilder.append(".pdf");
+        Set<String> keySet = scoresPaths.keySet();
+        Iterator<String> iterator = keySet.iterator();
+        while(iterator.hasNext()) {
+            String partName = iterator.next();
 
-        return stringBuilder.toString();
+            StringBuilder stringBuilder = new StringBuilder(path);
+
+            stringBuilder.append(" - ");
+            stringBuilder.append(partName);
+            stringBuilder.append(".pdf");
+
+            scoresPaths.put(partName, stringBuilder.toString());
+        }
+
+        return scoresPaths;
     }
 
-    private static String generateMp3Path(Song song) {
-        String path = generatePath(song);
+    private String generateMp3Path() {
+        String path = generatePath();
 
         StringBuilder stringBuilder = new StringBuilder(path);
 
@@ -65,11 +84,8 @@ public class SongBuilder {
         return stringBuilder.toString();
     }
 
-    private static String generatePath(Song song) {
+    private String generatePath() {
         StringBuilder stringBuilder = new StringBuilder();
-
-//        stringBuilder.append("/storage/emulated/0/Android/data/com.hard.app");//getExternalFilesDir(filepath);
-//        stringBuilder.append("/files");
 
         stringBuilder.append("/");
         stringBuilder.append(song.getBand().getTitle());
