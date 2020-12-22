@@ -2,9 +2,13 @@ package com.hard.playback_player.activities.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.barteksc.pdfviewer.PDFView;
@@ -14,7 +18,9 @@ import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 
 import java.io.File;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,30 +66,67 @@ public class ScoreFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_score, container, false);
+        view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        load(view);
+        String scoreTitle = "Full Score";
+        load(view, scoreTitle);
 
         return view;
     }
 
-    private void load(View view) {
+    /**
+     * Menu
+     */
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        SongActivity activity = (SongActivity) getActivity();
+        Song song = activity.getSong();
+        Map<String, String> scoresPaths = song.getScoresPaths();
+        Set<String> scoresSet = scoresPaths.keySet();
+
+        int id = 1;
+        Iterator<String> iterator = scoresSet.iterator();
+        while (iterator.hasNext()) {
+            String scoreTitle = iterator.next();
+            menu.add(1, id, id, scoreTitle);
+            id++;
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private View view;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getTitle() != null) {
+            String scoreTitle = item.getTitle().toString();
+            load(view, scoreTitle);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void load(View view, String scoreTitle) {
         SongActivity activity = (SongActivity) getActivity();
         Song song = activity.getSong();
         Map<String, String> scoresPaths = song.getScoresPaths();
 
-        String scorePath = scoresPaths.get("Full Score");
+        String scorePath = scoresPaths.get(scoreTitle);
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 
         pdfView.fromFile(new File(Constants.STORAGE + scorePath))
 //                .pages(0, 1, 2) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
-                .swipeHorizontal(false)
+                .swipeHorizontal(scoreTitle.equals("Full Score"))
                 .enableDoubletap(true)
                 .defaultPage(0)
                 // allows to draw something on the current page, usually visible in the middle of the screen
