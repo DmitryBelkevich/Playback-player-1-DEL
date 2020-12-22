@@ -13,32 +13,32 @@ import java.util.Map;
 public class DatabaseInitializer {
     public static void init() {
         File file = new File(Constants.STORAGE);
-        File[] bands_folders = file.listFiles();
+        File[] bandsFolders = file.listFiles();
 
         long bandId = 1;
         long songId = 1;
 
-        if (bands_folders == null)
+        if (bandsFolders == null)
             return;
 
-        for (int i = 0; i < bands_folders.length; i++) {
+        for (int i = 0; i < bandsFolders.length; i++) {
             Band band = new Band();
 
             band.setId(bandId);
             band.setSongs(new ArrayList<>());
-            band.setTitle(bands_folders[i].getName());
+            band.setTitle(bandsFolders[i].getName());
 
-            for (int j = 0; j < bands_folders[i].listFiles().length; j++) {
+            for (int j = 0; j < bandsFolders[i].listFiles().length; j++) {
                 String bandTitle = band.getTitle();
-                String fullSongTitle = bands_folders[i].listFiles()[j].getName();
+                String fullSongTitle = bandsFolders[i].listFiles()[j].getName();
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
-                File current_song_folder = bands_folders[i].listFiles()[j];
-                File[] scores_folders = current_song_folder.listFiles();
+                File currentSongFolder = bandsFolders[i].listFiles()[j];
+                File[] scoreFolders = currentSongFolder.listFiles();
 
                 Map<String, String> scores = new HashMap<>();
-                for (int k = 0; k < scores_folders.length; k++) {
-                    File score_folder = scores_folders[k];
+                for (int k = 0; k < scoreFolders.length; k++) {
+                    File score_folder = scoreFolders[k];
                     String scoreTitle = score_folder.getName().substring(fullSongTitle.length() + 3);
 
                     scores.put(scoreTitle, null);
