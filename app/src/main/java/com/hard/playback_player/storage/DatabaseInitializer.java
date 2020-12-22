@@ -35,25 +35,25 @@ public class DatabaseInitializer {
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
                 File currentSongFolder = bandsFolders[i].listFiles()[j];
-                File[] scoresFolders = currentSongFolder.listFiles(new FilenameFilter() {
+                File[] scoresFiles = currentSongFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
                         return name.toLowerCase().endsWith(".pdf");
                     }
                 });
 
-                Map<String, String> scores = new HashMap<>();
-                for (int k = 0; k < scoresFolders.length; k++) {
-                    File scoreFolder = scoresFolders[k];
-                    String scoreTitle = scoreFolder.getName().substring(fullSongTitle.length() + 3);
+                Map<String, String> scoresTitles = new HashMap<>();
+                for (int k = 0; k < scoresFiles.length; k++) {
+                    File scoreFile = scoresFiles[k];
+                    String scoreTitle = scoreFile.getName().substring(fullSongTitle.length() + 3, scoreFile.getName().length() - 4);
 
-                    scores.put(scoreTitle, null);
+                    scoresTitles.put(scoreTitle, null);
                 }
 
                 Song song = new SongBuilder()
                         .buildId(songId)
                         .buildBand(band)
-                        .buildScoresPaths(scores)
+                        .buildScoresPaths(scoresTitles)
                         .buildTitle(songTitle)
                         .build();
 
