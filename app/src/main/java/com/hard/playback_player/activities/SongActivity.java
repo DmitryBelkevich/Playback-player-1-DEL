@@ -134,7 +134,6 @@ public class SongActivity extends AppCompatActivity {
     private void init() {
         player = new MediaPlayer();
 
-
         try {
             FileInputStream fileInputStream = new FileInputStream(Constants.STORAGE + song.getSoundPath());
             FileDescriptor fileDescriptor = fileInputStream.getFD();
