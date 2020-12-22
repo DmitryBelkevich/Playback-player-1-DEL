@@ -24,6 +24,13 @@ public class DatabaseInitializer {
         if (bandsFolders == null)
             return;
 
+        Arrays.sort(bandsFolders, new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return file1.getName().compareTo(file2.getName());
+            }
+        });
+
         for (int i = 0; i < bandsFolders.length; i++) {
             Band band = new Band();
 
