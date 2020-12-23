@@ -107,10 +107,11 @@ public class ScoreFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getTitle() != null) {
-            song.setScore(item.getTitle().toString());
-            load();
-        }
+        if (item.getTitle() == null)
+            return true;
+
+        song.setScore(item.getTitle().toString());
+        load();
 
         return super.onOptionsItemSelected(item);
     }

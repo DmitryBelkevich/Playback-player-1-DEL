@@ -9,7 +9,6 @@ import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -94,7 +93,7 @@ public class DatabaseInitializer {
                     }
                 });
 
-                Map<Integer, String> playbacks = new HashMap<>();
+                Map<Integer, String> playbacks = new TreeMap<>();
 
                 for (int k = 0; k < playbacksFiles.length; k++) {
                     File playbackFile = playbacksFiles[k];
