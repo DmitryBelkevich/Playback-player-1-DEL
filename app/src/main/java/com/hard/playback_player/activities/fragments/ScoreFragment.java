@@ -123,11 +123,14 @@ public class ScoreFragment extends Fragment {
     private void load() {
         Map<String, String> scoresPaths = song.getScores();
 
-        String scorePath = scoresPaths.get(song.getScore());
+        String score = scoresPaths.get(song.getScore());
+
+        if (score == null)
+            return;
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 
-        pdfView.fromFile(new File(scorePath))
+        pdfView.fromFile(new File(score))
 //                .pages(0, 1, 2) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(song.getScore().equals("Full Score"))
