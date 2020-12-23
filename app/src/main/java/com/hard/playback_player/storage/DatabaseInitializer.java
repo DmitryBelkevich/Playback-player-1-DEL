@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class DatabaseInitializer {
     public static void init() {
@@ -76,7 +77,7 @@ public class DatabaseInitializer {
                     }
                 });
 
-                Map<String, String> scores = new HashMap<>();
+                Map<String, String> scores = new TreeMap<>();
                 for (int k = 0; k < scoresFiles.length; k++) {
                     File scoreFile = scoresFiles[k];
                     String scoreTitle = scoreFile.getName().substring(fullSongTitle.length() + 3, scoreFile.getName().length() - 4);
