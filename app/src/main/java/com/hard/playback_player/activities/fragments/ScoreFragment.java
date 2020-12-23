@@ -89,7 +89,7 @@ public class ScoreFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        Map<String, String> scoresPaths = song.getScoresPaths();
+        Map<String, String> scoresPaths = song.getScores();
         Set<String> scoresSet = scoresPaths.keySet();
 
         int id = 1;
@@ -116,7 +116,7 @@ public class ScoreFragment extends Fragment {
     private void load(String scoreTitle) {
         SongActivity activity = (SongActivity) getActivity();
         song = activity.getSong();
-        Map<String, String> scoresPaths = song.getScoresPaths();
+        Map<String, String> scoresPaths = song.getScores();
 
         String scorePath = scoresPaths.get(scoreTitle);
 

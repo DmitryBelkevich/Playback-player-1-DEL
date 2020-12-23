@@ -22,7 +22,6 @@ import com.hard.playback_player.activities.fragments.PlayerFragment;
 import com.hard.playback_player.activities.fragments.ScoreFragment;
 import com.hard.playback_player.activities.fragments.TextFragment;
 import com.hard.playback_player.models.Song;
-import com.hard.playback_player.settings.Constants;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
@@ -134,8 +133,9 @@ public class SongActivity extends AppCompatActivity {
     private void init() {
         player = new MediaPlayer();
 
+        String playback = song.getPlaybacks().get(0);
         try {
-            FileInputStream fileInputStream = new FileInputStream(Constants.STORAGE + song.getSoundPath());
+            FileInputStream fileInputStream = new FileInputStream(playback);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
             player.setDataSource(fileDescriptor);
             player.prepare();

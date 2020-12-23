@@ -44,7 +44,17 @@ public class DatabaseInitializer {
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
                 File[] songsFolders = bandsFolders[i].listFiles();
+
+//                Arrays.sort(songsFolders, new Comparator<File>() {
+//                    @Override
+//                    public int compare(File file1, File file2) {
+//                        return file1.getName().compareTo(file2.getName());
+//                    }
+//                });
+
                 File songFolder = songsFolders[j];
+
+                // find: .pdf
                 File[] scoresFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
@@ -60,11 +70,38 @@ public class DatabaseInitializer {
                     scoresTitles.put(scoreTitle, null);
                 }
 
+                // find: .mp3
+
+                File[] playbacksFiles = songFolder.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".mp3");
+                    }
+                });
+
+                Map<Integer, String> playbacks = new HashMap<>();
+
+                for (int k = 0; k < playbacksFiles.length; k++) {
+                    File playbackFile = playbacksFiles[k];
+
+                    String fileName = playbackFile.getName();
+                    String transposedString = fileName.substring(fullSongTitle.length(), fileName.length() - 4);
+
+                    int transposed = 0;
+                    if (!transposedString.equals(""))
+                        transposed = Integer.parseInt(transposedString.substring(2, transposedString.length() - 1));
+
+                    playbacks.put(transposed, playbackFile.getPath());
+                }
+
+                // builder
+
                 Song song = new SongBuilder()
                         .buildId(songId)
                         .buildBand(band)
-                        .buildScoresPaths(scoresTitles)
                         .buildTitle(songTitle)
+                        .buildScoresPaths(scoresTitles)
+                        .buildPlaybacks(playbacks)
                         .build();
 
                 band.getSongs().add(song);

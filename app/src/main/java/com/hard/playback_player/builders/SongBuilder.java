@@ -30,14 +30,18 @@ public class SongBuilder {
     }
 
     public SongBuilder buildScoresPaths(Map<String, String> scoresPaths) {
-        song.setScoresPaths(scoresPaths);
+        song.setScores(scoresPaths);
+        return this;
+    }
+
+    public SongBuilder buildPlaybacks(Map<Integer, String> playbacks) {
+        song.setPlaybacks(playbacks);
         return this;
     }
 
     public Song build() {
         song.setTextPath(generateTextPath());
-        song.setScoresPaths(generateScoresPaths());
-        song.setSoundPath(generateMp3Path());
+        song.setScores(generateScoresPaths());
 
         return song;
     }
@@ -53,7 +57,7 @@ public class SongBuilder {
     }
 
     private Map<String, String> generateScoresPaths() {
-        Map<String, String> scoresPaths = song.getScoresPaths();
+        Map<String, String> scoresPaths = song.getScores();
 
         String path = generatePath();
 
@@ -72,16 +76,6 @@ public class SongBuilder {
         }
 
         return scoresPaths;
-    }
-
-    private String generateMp3Path() {
-        String path = generatePath();
-
-        StringBuilder stringBuilder = new StringBuilder(path);
-
-        stringBuilder.append(".mp3");
-
-        return stringBuilder.toString();
     }
 
     private String generatePath() {

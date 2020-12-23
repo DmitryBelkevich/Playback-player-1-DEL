@@ -6,8 +6,8 @@ public class Song extends AbstractModel {
     private Band band;
     private String title;
     private String textPath;
-    private Map<String, String> scoresPaths;
-    private String soundPath;
+    private Map<String, String> scores;
+    private Map<Integer, String> playbacks;
 
     public Band getBand() {
         return band;
@@ -33,19 +33,19 @@ public class Song extends AbstractModel {
         this.textPath = textPath;
     }
 
-    public Map<String, String> getScoresPaths() {
-        return scoresPaths;
+    public Map<String, String> getScores() {
+        return scores;
     }
 
-    public void setScoresPaths(Map<String, String> scoresPaths) {
-        this.scoresPaths = scoresPaths;
+    public void setScores(Map<String, String> scores) {
+        this.scores = scores;
     }
 
-    public String getSoundPath() {
-        return soundPath;
+    public Map<Integer, String> getPlaybacks() {
+        return playbacks;
     }
 
-    public void setSoundPath(String soundPath) {
-        this.soundPath = soundPath;
+    public void setPlaybacks(Map<Integer, String> playbacks) {
+        this.playbacks = playbacks;
     }
 }
