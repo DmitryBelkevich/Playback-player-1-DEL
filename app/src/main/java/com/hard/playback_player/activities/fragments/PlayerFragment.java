@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +15,9 @@ import com.hard.playback_player.R;
 import com.hard.playback_player.activities.SongActivity;
 import com.hard.playback_player.models.Song;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +68,8 @@ public class PlayerFragment extends Fragment {
 
         SongActivity activity = (SongActivity) getActivity();
         song = activity.getSong();
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -72,5 +77,35 @@ public class PlayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_player, container, false);
 
         return view;
+    }
+
+    /**
+     * Menu
+     */
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        Map<Integer, String> playbacks = song.getPlaybacks();
+        Set<Integer> playbacksSet = playbacks.keySet();
+
+        int id = 1;
+        Iterator<Integer> iterator = playbacksSet.iterator();
+        while (iterator.hasNext()) {
+            Integer transpose = iterator.next();
+            menu.add(1, id, id, String.valueOf(transpose));
+            id++;
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item != null) {
+            String transposition = item.getTitle().toString();
+            song.setTransposition(Integer.valueOf(transposition));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
