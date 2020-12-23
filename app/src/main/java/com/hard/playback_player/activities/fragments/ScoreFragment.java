@@ -75,6 +75,8 @@ public class ScoreFragment extends Fragment {
         SongActivity activity = (SongActivity) getActivity();
         song = activity.getSong();
 
+        score = "Full Score";
+
         setHasOptionsMenu(true);
     }
 
@@ -82,7 +84,6 @@ public class ScoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        score = "Full Score";
         load();
 
         return view;
