@@ -5,7 +5,7 @@ import java.util.Map;
 public class Song extends AbstractModel {
     private Band band;
     private String title;
-    private String textPath;
+    private String text;
     private Map<String, String> scores;
     private Map<Integer, String> playbacks;
 
@@ -25,12 +25,12 @@ public class Song extends AbstractModel {
         this.title = title;
     }
 
-    public String getTextPath() {
-        return textPath;
+    public String getText() {
+        return text;
     }
 
-    public void setTextPath(String textPath) {
-        this.textPath = textPath;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public Map<String, String> getScores() {

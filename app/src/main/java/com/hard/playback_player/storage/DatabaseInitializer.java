@@ -54,6 +54,21 @@ public class DatabaseInitializer {
 
                 File songFolder = songsFolders[j];
 
+                // find: .txt
+
+                File[] textsFiles = songFolder.listFiles(new FilenameFilter() {
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return name.toLowerCase().endsWith(".txt");
+                    }
+                });
+
+                String text = null;
+                if (textsFiles != null) {
+                    File textFile = textsFiles[0];
+                    text = textFile.getPath();
+                }
+
                 // find: .pdf
                 File[] scoresFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
@@ -100,6 +115,7 @@ public class DatabaseInitializer {
                         .buildId(songId)
                         .buildBand(band)
                         .buildTitle(songTitle)
+                        .buildText(text)
                         .buildScoresPaths(scoresTitles)
                         .buildPlaybacks(playbacks)
                         .build();

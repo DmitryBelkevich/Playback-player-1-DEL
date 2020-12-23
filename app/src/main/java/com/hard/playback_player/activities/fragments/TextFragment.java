@@ -74,12 +74,12 @@ public class TextFragment extends Fragment {
     private void load(View view) {
         SongActivity activity = (SongActivity) getActivity();
         Song song = activity.getSong();
-        String textPath = song.getTextPath();
+        String textPath = song.getText();
 
         TextView textView = view.findViewById(R.id.songText);
 
         try {
-            String text = Reader.read(Constants.STORAGE + textPath);
+            String text = Reader.read(textPath);
             textView.setText(text);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -29,6 +29,11 @@ public class SongBuilder {
         return this;
     }
 
+    public SongBuilder buildText(String text) {
+        song.setText(text);
+        return this;
+    }
+
     public SongBuilder buildScoresPaths(Map<String, String> scoresPaths) {
         song.setScores(scoresPaths);
         return this;
@@ -40,20 +45,9 @@ public class SongBuilder {
     }
 
     public Song build() {
-        song.setTextPath(generateTextPath());
         song.setScores(generateScoresPaths());
 
         return song;
-    }
-
-    private String generateTextPath() {
-        String path = generatePath();
-
-        StringBuilder stringBuilder = new StringBuilder(path);
-
-        stringBuilder.append(".txt");
-
-        return stringBuilder.toString();
     }
 
     private Map<String, String> generateScoresPaths() {
