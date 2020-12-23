@@ -40,6 +40,8 @@ public class ScoreFragment extends Fragment {
     private View view;
     private Song song;
 
+    private String score;
+
     public ScoreFragment() {
         // Required empty public constructor
     }
@@ -70,6 +72,9 @@ public class ScoreFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        SongActivity activity = (SongActivity) getActivity();
+        song = activity.getSong();
+
         setHasOptionsMenu(true);
     }
 
@@ -77,8 +82,8 @@ public class ScoreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_score, container, false);
 
-        String scoreTitle = "Full Score";
-        load(scoreTitle);
+        score = "Full Score";
+        load();
 
         return view;
     }
@@ -106,26 +111,28 @@ public class ScoreFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getTitle() != null) {
-            String scoreTitle = item.getTitle().toString();
-            load(scoreTitle);
+            score = item.getTitle().toString();
+            load();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void load(String scoreTitle) {
-        SongActivity activity = (SongActivity) getActivity();
-        song = activity.getSong();
+    /**
+     * load
+     */
+
+    private void load() {
         Map<String, String> scoresPaths = song.getScores();
 
-        String scorePath = scoresPaths.get(scoreTitle);
+        String scorePath = scoresPaths.get(score);
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 
         pdfView.fromFile(new File(scorePath))
 //                .pages(0, 1, 2) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
-                .swipeHorizontal(scoreTitle.equals("Full Score"))
+                .swipeHorizontal(score.equals("Full Score"))
                 .enableDoubletap(true)
                 .defaultPage(0)
                 // allows to draw something on the current page, usually visible in the middle of the screen

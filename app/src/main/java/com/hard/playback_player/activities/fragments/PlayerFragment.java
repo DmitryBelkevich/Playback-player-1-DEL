@@ -2,12 +2,19 @@ package com.hard.playback_player.activities.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.hard.playback_player.R;
+import com.hard.playback_player.activities.SongActivity;
+import com.hard.playback_player.models.Song;
+
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +30,8 @@ public class PlayerFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Song song;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -53,6 +62,9 @@ public class PlayerFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        SongActivity activity = (SongActivity) getActivity();
+        song = activity.getSong();
     }
 
     @Override

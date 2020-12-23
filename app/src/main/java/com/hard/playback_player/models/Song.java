@@ -8,6 +8,7 @@ public class Song extends AbstractModel {
     private String text;
     private Map<String, String> scores;
     private Map<Integer, String> playbacks;
+    private int transposition;
 
     public Band getBand() {
         return band;
@@ -47,5 +48,13 @@ public class Song extends AbstractModel {
 
     public void setPlaybacks(Map<Integer, String> playbacks) {
         this.playbacks = playbacks;
+    }
+
+    public int getTransposition() {
+        return transposition;
+    }
+
+    public void setTransposition(int transposition) {
+        this.transposition = transposition;
     }
 }

@@ -133,7 +133,7 @@ public class SongActivity extends AppCompatActivity {
     private void init() {
         player = new MediaPlayer();
 
-        String playback = song.getPlaybacks().get(0);
+        String playback = song.getPlaybacks().get(song.getTransposition());
         try {
             FileInputStream fileInputStream = new FileInputStream(playback);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
