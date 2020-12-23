@@ -10,13 +10,7 @@ public class Reader {
     public static String read(String path) throws FileNotFoundException {
         StringBuilder stringBuilder = new StringBuilder();
 
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(new File(path));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+        FileReader fileReader = new FileReader(new File(path));
 
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
