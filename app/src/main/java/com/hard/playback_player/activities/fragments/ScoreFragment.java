@@ -38,6 +38,7 @@ public class ScoreFragment extends Fragment {
     private String mParam2;
 
     private View view;
+    private Song song;
 
     public ScoreFragment() {
         // Required empty public constructor
@@ -88,8 +89,6 @@ public class ScoreFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        SongActivity activity = (SongActivity) getActivity();
-        Song song = activity.getSong();
         Map<String, String> scoresPaths = song.getScoresPaths();
         Set<String> scoresSet = scoresPaths.keySet();
 
@@ -116,7 +115,7 @@ public class ScoreFragment extends Fragment {
 
     private void load(String scoreTitle) {
         SongActivity activity = (SongActivity) getActivity();
-        Song song = activity.getSong();
+        song = activity.getSong();
         Map<String, String> scoresPaths = song.getScoresPaths();
 
         String scorePath = scoresPaths.get(scoreTitle);
