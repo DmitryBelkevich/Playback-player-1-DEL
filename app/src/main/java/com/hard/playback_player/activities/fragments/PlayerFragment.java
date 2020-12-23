@@ -101,8 +101,8 @@ public class PlayerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getTitle() != null)
-            return true;
+        if (item.getTitle() == null)
+            return super.onOptionsItemSelected(item);
 
         String transposition = item.getTitle().toString();
         song.setTransposition(Integer.valueOf(transposition));
