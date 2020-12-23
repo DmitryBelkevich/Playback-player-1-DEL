@@ -131,9 +131,13 @@ public class SongActivity extends AppCompatActivity {
      */
 
     private void init() {
+        String playback = song.getPlaybacks().get(song.getTransposition());
+
+        if (playback == null)
+            return;
+
         player = new MediaPlayer();
 
-        String playback = song.getPlaybacks().get(song.getTransposition());
         try {
             FileInputStream fileInputStream = new FileInputStream(playback);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
@@ -153,6 +157,9 @@ public class SongActivity extends AppCompatActivity {
     private void start() {
         if (player == null)
             init();
+
+        if (player == null)
+            return;
 
         if (player.isPlaying()) {
             player.pause();
