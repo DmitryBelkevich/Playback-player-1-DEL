@@ -1,6 +1,5 @@
 package com.hard.playback_player.storage;
 
-import com.hard.playback_player.builders.SongBuilder;
 import com.hard.playback_player.models.Band;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
@@ -77,12 +76,12 @@ public class DatabaseInitializer {
                     }
                 });
 
-                Map<String, String> scoresTitles = new HashMap<>();
+                Map<String, String> scores = new HashMap<>();
                 for (int k = 0; k < scoresFiles.length; k++) {
                     File scoreFile = scoresFiles[k];
                     String scoreTitle = scoreFile.getName().substring(fullSongTitle.length() + 3, scoreFile.getName().length() - 4);
 
-                    scoresTitles.put(scoreTitle, null);
+                    scores.put(scoreTitle, scoreFile.getPath());
                 }
 
                 // find: .mp3
@@ -111,14 +110,14 @@ public class DatabaseInitializer {
 
                 // builder
 
-                Song song = new SongBuilder()
-                        .buildId(songId)
-                        .buildBand(band)
-                        .buildTitle(songTitle)
-                        .buildText(text)
-                        .buildScoresPaths(scoresTitles)
-                        .buildPlaybacks(playbacks)
-                        .build();
+                Song song = new Song();
+
+                song.setId(songId);
+                song.setBand(band);
+                song.setTitle(songTitle);
+                song.setText(text);
+                song.setScores(scores);
+                song.setPlaybacks(playbacks);
 
                 band.getSongs().add(song);
                 Database.songs.add(song);

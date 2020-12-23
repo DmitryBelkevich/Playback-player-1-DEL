@@ -122,7 +122,7 @@ public class ScoreFragment extends Fragment {
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 
-        pdfView.fromFile(new File(Constants.STORAGE + scorePath))
+        pdfView.fromFile(new File(scorePath))
 //                .pages(0, 1, 2) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(scoreTitle.equals("Full Score"))
