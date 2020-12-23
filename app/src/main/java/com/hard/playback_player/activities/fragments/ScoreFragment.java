@@ -40,8 +40,6 @@ public class ScoreFragment extends Fragment {
     private View view;
     private Song song;
 
-    private String score;
-
     public ScoreFragment() {
         // Required empty public constructor
     }
@@ -74,8 +72,6 @@ public class ScoreFragment extends Fragment {
 
         SongActivity activity = (SongActivity) getActivity();
         song = activity.getSong();
-
-        score = "Full Score";
 
         setHasOptionsMenu(true);
     }
@@ -112,7 +108,7 @@ public class ScoreFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getTitle() != null) {
-            score = item.getTitle().toString();
+            song.setScore(item.getTitle().toString());
             load();
         }
 
@@ -126,14 +122,14 @@ public class ScoreFragment extends Fragment {
     private void load() {
         Map<String, String> scoresPaths = song.getScores();
 
-        String scorePath = scoresPaths.get(score);
+        String scorePath = scoresPaths.get(song.getScore());
 
         PDFView pdfView = view.findViewById(R.id.pdfView);
 
         pdfView.fromFile(new File(scorePath))
 //                .pages(0, 1, 2) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
-                .swipeHorizontal(score.equals("Full Score"))
+                .swipeHorizontal(song.getScore().equals("Full Score"))
                 .enableDoubletap(true)
                 .defaultPage(0)
                 // allows to draw something on the current page, usually visible in the middle of the screen
