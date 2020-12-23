@@ -78,9 +78,8 @@ public class TextFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.songText);
 
-        String text = null;
         try {
-            text = Reader.read(Constants.STORAGE + textPath);
+            String text = Reader.read(Constants.STORAGE + textPath);
             textView.setText(text);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

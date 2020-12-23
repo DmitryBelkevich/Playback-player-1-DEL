@@ -37,6 +37,8 @@ public class ScoreFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private View view;
+
     public ScoreFragment() {
         // Required empty public constructor
     }
@@ -75,7 +77,7 @@ public class ScoreFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_score, container, false);
 
         String scoreTitle = "Full Score";
-        load(view, scoreTitle);
+        load(scoreTitle);
 
         return view;
     }
@@ -102,19 +104,17 @@ public class ScoreFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private View view;
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getTitle() != null) {
             String scoreTitle = item.getTitle().toString();
-            load(view, scoreTitle);
+            load(scoreTitle);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void load(View view, String scoreTitle) {
+    private void load(String scoreTitle) {
         SongActivity activity = (SongActivity) getActivity();
         Song song = activity.getSong();
         Map<String, String> scoresPaths = song.getScoresPaths();
