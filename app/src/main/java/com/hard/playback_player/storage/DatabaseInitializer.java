@@ -63,7 +63,7 @@ public class DatabaseInitializer {
                 });
 
                 String text = null;
-                if (textsFiles != null) {
+                if (textsFiles.length != 0) {
                     File textFile = textsFiles[0];
                     text = textFile.getPath();
                 }

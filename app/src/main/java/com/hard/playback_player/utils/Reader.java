@@ -8,6 +8,9 @@ import java.io.IOException;
 
 public class Reader {
     public static String read(String path) throws FileNotFoundException {
+        if (path == null)
+            return null;
+
         StringBuilder stringBuilder = new StringBuilder();
 
         FileReader fileReader = new FileReader(new File(path));
