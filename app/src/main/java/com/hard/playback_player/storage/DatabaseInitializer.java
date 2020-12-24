@@ -8,8 +8,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class DatabaseInitializer {
@@ -38,18 +40,22 @@ public class DatabaseInitializer {
             band.setTitle(bandsFolders[i].getName());
 
             for (int j = 0; j < bandsFolders[i].listFiles().length; j++) {
+                // song
+
+                Song song = new Song();
+
+                song.setId(songId);
+                song.setBand(band);
+
                 String bandTitle = band.getTitle();
                 String fullSongTitle = bandsFolders[i].listFiles()[j].getName();
                 String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
 
+                song.setTitle(songTitle);
+
                 File[] songsFolders = bandsFolders[i].listFiles();
 
-//                Arrays.sort(songsFolders, new Comparator<File>() {
-//                    @Override
-//                    public int compare(File file1, File file2) {
-//                        return file1.getName().compareTo(file2.getName());
-//                    }
-//                });
+                // TODO songs sorting
 
                 File songFolder = songsFolders[j];
 
@@ -68,7 +74,10 @@ public class DatabaseInitializer {
                     text = textFile.getPath();
                 }
 
+                song.setText(text);
+
                 // find: .pdf
+
                 File[] scoresFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
@@ -108,14 +117,6 @@ public class DatabaseInitializer {
                     playbacks.put(transposed, playbackFile.getPath());
                 }
 
-                // builder
-
-                Song song = new Song();
-
-                song.setId(songId);
-                song.setBand(band);
-                song.setTitle(songTitle);
-                song.setText(text);
                 song.setScores(scores);
                 song.setPlaybacks(playbacks);
 
