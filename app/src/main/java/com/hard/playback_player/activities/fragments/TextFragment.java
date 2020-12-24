@@ -31,6 +31,9 @@ public class TextFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private TextView textView;
+    private Song song;
+
     public TextFragment() {
         // Required empty public constructor
     }
@@ -60,23 +63,24 @@ public class TextFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        SongActivity activity = (SongActivity) getActivity();
+        song = activity.getSong();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_text, container, false);
 
-        load(view);
+        textView = view.findViewById(R.id.songText);
+
+        load();
 
         return view;
     }
 
-    private void load(View view) {
-        SongActivity activity = (SongActivity) getActivity();
-        Song song = activity.getSong();
+    private void load() {
         String textPath = song.getText();
-
-        TextView textView = view.findViewById(R.id.songText);
 
         try {
             String text = Reader.read(textPath);

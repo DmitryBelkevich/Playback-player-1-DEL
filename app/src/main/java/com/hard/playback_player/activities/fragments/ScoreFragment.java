@@ -37,7 +37,7 @@ public class ScoreFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private View view;
+    private PDFView pdfView;
     private Song song;
 
     public ScoreFragment() {
@@ -78,7 +78,9 @@ public class ScoreFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_score, container, false);
+        View view = inflater.inflate(R.layout.fragment_score, container, false);
+
+        pdfView = view.findViewById(R.id.pdfView);
 
         load();
 
@@ -127,8 +129,6 @@ public class ScoreFragment extends Fragment {
 
         if (score == null)
             return;
-
-        PDFView pdfView = view.findViewById(R.id.pdfView);
 
         pdfView.fromFile(new File(score))
 //                .pages(0, 1, 2) // all pages are displayed by default
