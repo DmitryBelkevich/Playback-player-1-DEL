@@ -120,6 +120,14 @@ public class DatabaseInitializer {
                 song.setScores(scores);
                 song.setPlaybacks(playbacks);
 
+                Set<Integer> playbacksSet = playbacks.keySet();
+
+                if (!playbacksSet.isEmpty() && !playbacksSet.contains(0)) {
+                    song.setTransposition(Collections.min(playbacksSet));
+                } else {
+                    song.setTransposition(0);
+                }
+
                 band.getSongs().add(song);
                 Database.songs.add(song);
 

@@ -82,7 +82,20 @@ public class SongActivity extends AppCompatActivity {
 
         song = (Song) getIntent().getSerializableExtra("song");
 
-        Toast.makeText(this, song.getBand().getTitle() + " - " + song.getTitle(), Toast.LENGTH_SHORT).show();
+        // Message
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(song.getBand().getTitle());
+        stringBuilder.append(" - ");
+        stringBuilder.append(song.getTitle());
+
+        if (song.getTransposition() != 0) {
+            stringBuilder.append(" (");
+            stringBuilder.append(song.getTransposition());
+            stringBuilder.append(")");
+        }
+
+        Toast.makeText(this, stringBuilder, Toast.LENGTH_SHORT).show();
     }
 
     @Override
