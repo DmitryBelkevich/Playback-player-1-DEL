@@ -39,7 +39,10 @@ public class DatabaseInitializer {
             band.setSongs(new ArrayList<>());
             band.setTitle(bandsFolders[i].getName());
 
-            for (int j = 0; j < bandsFolders[i].listFiles().length; j++) {
+            File bandFolder = bandsFolders[i];
+            File[] songsFolders = bandFolder.listFiles();
+
+            for (int j = 0; j < songsFolders.length; j++) {
                 // song
 
                 Song song = new Song();
@@ -47,17 +50,11 @@ public class DatabaseInitializer {
                 song.setId(songId);
                 song.setBand(band);
 
-                String bandTitle = band.getTitle();
-                String fullSongTitle = bandsFolders[i].listFiles()[j].getName();
-                String songTitle = fullSongTitle.substring(bandTitle.length() + 3);
+                File songFolder = songsFolders[j];
+                String fullSongTitle = songFolder.getName();
+                String songTitle = fullSongTitle.substring(band.getTitle().length() + " - ".length());
 
                 song.setTitle(songTitle);
-
-                File[] songsFolders = bandsFolders[i].listFiles();
-
-                // TODO songs sorting
-
-                File songFolder = songsFolders[j];
 
                 // find: .txt
 
