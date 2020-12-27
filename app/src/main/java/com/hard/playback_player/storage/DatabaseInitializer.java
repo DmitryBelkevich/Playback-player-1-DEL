@@ -42,6 +42,13 @@ public class DatabaseInitializer {
             File bandFolder = bandsFolders[i];
             File[] songsFolders = bandFolder.listFiles();
 
+            Arrays.sort(songsFolders, new Comparator<File>() {
+                @Override
+                public int compare(File file1, File file2) {
+                    return file1.getName().compareTo(file2.getName());
+                }
+            });
+
             for (int j = 0; j < songsFolders.length; j++) {
                 // song
 
