@@ -92,7 +92,7 @@ public class DatabaseInitializer {
                 Map<String, String> scores = new TreeMap<>();
                 for (int k = 0; k < scoresFiles.length; k++) {
                     File scoreFile = scoresFiles[k];
-                    String scoreTitle = scoreFile.getName().substring(fullSongTitle.length() + 3, scoreFile.getName().length() - 4);
+                    String scoreTitle = scoreFile.getName().substring(fullSongTitle.length() + " - ".length(), scoreFile.getName().length() - ".pdf".length());
 
                     scores.put(scoreTitle, scoreFile.getPath());
                 }
@@ -112,11 +112,11 @@ public class DatabaseInitializer {
                     File playbackFile = playbacksFiles[k];
 
                     String fileName = playbackFile.getName();
-                    String transposedString = fileName.substring(fullSongTitle.length(), fileName.length() - 4);
+                    String postfix = fileName.substring(fullSongTitle.length(), fileName.length() - ".mp3".length());
 
                     int transposed = 0;
-                    if (!transposedString.equals(""))
-                        transposed = Integer.parseInt(transposedString.substring(2, transposedString.length() - 1));
+                    if (!postfix.equals(""))
+                        transposed = Integer.parseInt(postfix.substring(" (".length(), postfix.length() - ")".length()));
 
                     playbacks.put(transposed, playbackFile.getPath());
                 }
