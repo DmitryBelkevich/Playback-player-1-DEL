@@ -16,11 +16,8 @@ import java.util.TreeMap;
 
 public class DatabaseInitializer {
     public static void init() {
-        File file = new File(Constants.STORAGE);
-        File[] bandsFolders = file.listFiles();
-
-        long bandId = 1;
-        long songId = 1;
+        File rootDirectory = new File(Constants.STORAGE);
+        File[] bandsFolders = rootDirectory.listFiles();
 
         if (bandsFolders == null)
             return;
@@ -31,6 +28,9 @@ public class DatabaseInitializer {
                 return file1.getName().compareTo(file2.getName());
             }
         });
+
+        long bandId = 1;
+        long songId = 1;
 
         for (int i = 0; i < bandsFolders.length; i++) {
             Band band = new Band();
