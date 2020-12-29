@@ -32,6 +32,8 @@ public class DatabaseInitializer {
         long bandId = 1;
         long songId = 1;
 
+        // insert bands
+
         for (int i = 0; i < bandsFolders.length; i++) {
             Band band = new Band();
 
@@ -49,9 +51,9 @@ public class DatabaseInitializer {
                 }
             });
 
-            for (int j = 0; j < songsFolders.length; j++) {
-                // song
+            // insert songs
 
+            for (int j = 0; j < songsFolders.length; j++) {
                 Song song = new Song();
 
                 song.setId(songId);
