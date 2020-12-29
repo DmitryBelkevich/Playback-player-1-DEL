@@ -42,6 +42,8 @@ public class SongActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         // Toolbar >
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,8 +53,6 @@ public class SongActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // < Toolbar
-
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // View Pager >
 
@@ -67,6 +67,8 @@ public class SongActivity extends AppCompatActivity {
 
         // < View Pager
 
+        // buttons >
+
         button_play = findViewById(R.id.button_play);
         button_stop = findViewById(R.id.button_stop);
 
@@ -78,11 +80,11 @@ public class SongActivity extends AppCompatActivity {
             stop();
         });
 
-        //
+        // < buttons
 
         song = (Song) getIntent().getSerializableExtra("song");
 
-        // Message
+        // Message >
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(song.getBand().getTitle());

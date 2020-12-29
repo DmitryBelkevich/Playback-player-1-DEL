@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -23,7 +24,6 @@ import com.hard.playback_player.services.SongService;
 import com.hard.playback_player.storage.Database;
 import com.hard.playback_player.storage.DatabaseInitializer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,13 +41,19 @@ public class PlaylistActivity extends AppCompatActivity implements SwipeRefreshL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
 
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        // listView >
+
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         playlist_listView = findViewById(R.id.playlist_listView);
 
-        songService = new SongService();
-
         swipeRefreshLayout.setOnRefreshListener(this);
         playlist_listView.setOnItemClickListener(this);
+
+        // < listView
+
+        songService = new SongService();
 
         onRefresh();
     }
