@@ -54,7 +54,7 @@ public class SongActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        // View Pager
+        // View Pager >
 
         ViewPager viewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
@@ -65,7 +65,7 @@ public class SongActivity extends AppCompatActivity {
         viewPagerAdapter.addItem(new PlayerFragment(), "Player");
         viewPager.setAdapter(viewPagerAdapter);
 
-        //
+        // < View Pager
 
         button_play = findViewById(R.id.button_play);
         button_stop = findViewById(R.id.button_stop);
