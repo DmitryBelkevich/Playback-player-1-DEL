@@ -1,10 +1,13 @@
 package com.hard.playback_player.utils;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 public class Reader {
     public static String readFromFile(String path) throws FileNotFoundException {
@@ -32,6 +35,32 @@ public class Reader {
 
                 if (fileReader != null)
                     fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public static String readFromUrl(String url) {
+        BufferedInputStream inputStream = null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
+
+            final char dataBuffer[] = new char[1024];
+            int read;
+            while ((read = bufferedReader.read(dataBuffer, 0, dataBuffer.length)) > 0) {
+                stringBuilder.append(dataBuffer, 0, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null)
+                    inputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }

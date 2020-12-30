@@ -1,5 +1,6 @@
 package com.hard.playback_player.activities.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,6 @@ import com.hard.playback_player.activities.SongActivity;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 import com.hard.playback_player.utils.Reader;
-
-import java.io.FileNotFoundException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,13 +79,31 @@ public class TextFragment extends Fragment {
     }
 
     private void load() {
-        String textPath = song.getText();
+        String textUrl = Constants.GOOGLE_DRIVE_FILE + song.getText();
 
-        try {
-            String text = Reader.read(textPath);
+        if (textUrl == null)
+            return;
+
+        new AsyncRequest().execute(textUrl);
+    }
+
+    private class AsyncRequest extends AsyncTask<String, Void, Void> {
+        private String text;
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String url = strings[0];
+
+            text = Reader.readFromUrl(url);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
             textView.setText(text);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 }

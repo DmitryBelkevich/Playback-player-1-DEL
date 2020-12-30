@@ -3,8 +3,10 @@ package com.hard.playback_player.storage;
 import com.hard.playback_player.models.Band;
 import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
+import com.hard.playback_player.utils.Reader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,14 +72,18 @@ public class DatabaseInitializer {
                 File[] textsFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith(".txt");
+                        return name.toLowerCase().endsWith("link.txt");
                     }
                 });
 
                 String text = null;
                 if (textsFiles.length != 0) {
                     File textFile = textsFiles[0];
-                    text = textFile.getPath();
+                    try {
+                        text = Reader.readFromFile(textFile.getPath());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 song.setText(text);
