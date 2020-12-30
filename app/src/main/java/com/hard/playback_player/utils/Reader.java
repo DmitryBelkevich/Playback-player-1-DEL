@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,13 +15,12 @@ public class Reader {
         if (path == null)
             return null;
 
-        StringBuilder stringBuilder = new StringBuilder();
-
         FileReader fileReader = new FileReader(new File(path));
-
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        String line = null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        String line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -67,5 +67,33 @@ public class Reader {
         }
 
         return stringBuilder.toString();
+    }
+
+    public static void download(String url, File path) {
+        BufferedInputStream inputStream = null;
+        FileOutputStream outputStream = null;
+
+        try {
+            inputStream = new BufferedInputStream(new URL(url).openStream());
+            outputStream = new FileOutputStream(path);
+
+            final byte dataBuffer[] = new byte[1024];
+            int read;
+            while ((read = inputStream.read(dataBuffer, 0, dataBuffer.length)) > 0) {
+                outputStream.write(dataBuffer, 0, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (inputStream != null)
+                    inputStream.close();
+
+                if (outputStream != null)
+                    outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
