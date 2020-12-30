@@ -18,7 +18,7 @@ import java.util.TreeMap;
 
 public class DatabaseInitializer {
     public static void init() {
-        File rootDirectory = new File(Constants.STORAGE);
+        File rootDirectory = new File(Constants.STORAGE + "/database");
         File[] bandsFolders = rootDirectory.listFiles();
 
         if (bandsFolders == null)
