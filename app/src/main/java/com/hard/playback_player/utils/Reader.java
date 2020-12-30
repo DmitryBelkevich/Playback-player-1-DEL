@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Reader {
-    public static String read(String path) throws FileNotFoundException {
+    public static String readFromFile(String path) throws FileNotFoundException {
         if (path == null)
             return null;
 
