@@ -90,11 +90,9 @@ public class TextFragment extends Fragment {
         new AsyncRequest().execute(textUrl);
     }
 
-    private class AsyncRequest extends AsyncTask<String, Void, Void> {
-        private String text;
-
+    private class AsyncRequest extends AsyncTask<String, Void, String> {
         @Override
-        protected Void doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
             String url = strings[0];
 
             File file = new File(Constants.STORAGE + "/texts"
@@ -104,19 +102,19 @@ public class TextFragment extends Fragment {
             if (!file.exists())
                 Reader.download(url, file);
 
+            String text = null;
             try {
                 text = Reader.readFromFile(file.getPath());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
 
-            return null;
+            return text;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
+        protected void onPostExecute(String text) {
+            super.onPostExecute(text);
             textView.setText(text);
         }
     }
