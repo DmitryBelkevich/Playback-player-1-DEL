@@ -72,7 +72,7 @@ public class DatabaseInitializer {
                 File[] textsFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith("link.txt");
+                        return name.toLowerCase().endsWith("text.txt");
                     }
                 });
 
