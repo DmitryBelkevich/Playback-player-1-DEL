@@ -15,6 +15,9 @@ import com.hard.playback_player.models.Song;
 import com.hard.playback_player.settings.Constants;
 import com.hard.playback_player.utils.Reader;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TextFragment#newInstance} factory method to
@@ -94,7 +97,18 @@ public class TextFragment extends Fragment {
         protected Void doInBackground(String... strings) {
             String url = strings[0];
 
-            text = Reader.readFromUrl(url);
+            File file = new File(Constants.STORAGE + "/texts"
+                    + "/" + song.getBand().getTitle() + " - " + song.getTitle() + ".txt"
+            );
+
+            if (!file.exists())
+                Reader.download(url, file);
+
+            try {
+                text = Reader.readFromFile(file.getPath());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
