@@ -22,9 +22,11 @@ public class Reader {
 
         String line;
         try {
+            String prefix = "";
             while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(prefix);
+                prefix = "\n";
                 stringBuilder.append(line);
-                stringBuilder.append('\n');
             }
         } catch (IOException e) {
             e.printStackTrace();
