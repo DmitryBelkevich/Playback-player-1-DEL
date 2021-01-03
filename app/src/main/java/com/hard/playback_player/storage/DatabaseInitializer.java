@@ -72,7 +72,7 @@ public class DatabaseInitializer {
                 File[] textsFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith("text.txt");
+                        return name.toLowerCase().contains("text");
                     }
                 });
 
@@ -112,7 +112,7 @@ public class DatabaseInitializer {
                 File[] playbacksFiles = songFolder.listFiles(new FilenameFilter() {
                     @Override
                     public boolean accept(File dir, String name) {
-                        return name.toLowerCase().endsWith(".mp3");
+                        return name.toLowerCase().contains("playback");
                     }
                 });
 
@@ -122,13 +122,19 @@ public class DatabaseInitializer {
                     File playbackFile = playbacksFiles[k];
 
                     String fileName = playbackFile.getName();
-                    String postfix = fileName.substring(fullSongTitle.length(), fileName.length() - ".mp3".length());
+                    String postfix = fileName.substring("playback".length());
 
                     int transposed = 0;
                     if (!postfix.equals(""))
                         transposed = Integer.parseInt(postfix.substring(" (".length(), postfix.length() - ")".length()));
 
-                    playbacks.put(transposed, playbackFile.getPath());
+                    String playback = null;
+                    try {
+                        playback = Reader.readFromFile(playbackFile.getPath());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    playbacks.put(transposed, playback);
                 }
 
                 song.setPlaybacks(playbacks);

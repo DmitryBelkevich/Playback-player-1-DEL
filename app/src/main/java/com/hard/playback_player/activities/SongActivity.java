@@ -22,7 +22,9 @@ import com.hard.playback_player.activities.fragments.PlayerFragment;
 import com.hard.playback_player.activities.fragments.ScoreFragment;
 import com.hard.playback_player.activities.fragments.TextFragment;
 import com.hard.playback_player.models.Song;
+import com.hard.playback_player.settings.Constants;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -146,15 +148,21 @@ public class SongActivity extends AppCompatActivity {
      */
 
     private void init() {
-        String playback = song.getPlaybacks().get(song.getTransposition());
+        String postfix = "";
+        if (song.getTransposition() != 0)
+            postfix = " (" + song.getTransposition() + ")";
 
-        if (playback == null)
+        File file = new File(Constants.STORAGE + "/playbacks"
+                + "/" + song.getBand().getTitle() + " - " + song.getTitle() + postfix + ".mp3"
+        );
+
+        if (!file.exists())
             return;
 
         player = new MediaPlayer();
 
         try {
-            FileInputStream fileInputStream = new FileInputStream(playback);
+            FileInputStream fileInputStream = new FileInputStream(file);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
             player.setDataSource(fileDescriptor);
             player.prepare();
