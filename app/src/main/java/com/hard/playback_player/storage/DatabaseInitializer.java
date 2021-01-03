@@ -105,6 +105,8 @@ public class DatabaseInitializer {
                     scores.put(scoreTitle, scoreFile.getPath());
                 }
 
+                song.setScores(scores);
+
                 // find: .mp3
 
                 File[] playbacksFiles = songFolder.listFiles(new FilenameFilter() {
@@ -129,8 +131,9 @@ public class DatabaseInitializer {
                     playbacks.put(transposed, playbackFile.getPath());
                 }
 
-                song.setScores(scores);
                 song.setPlaybacks(playbacks);
+
+                // setTransposition
 
                 Set<Integer> playbacksSet = playbacks.keySet();
 
@@ -139,6 +142,8 @@ public class DatabaseInitializer {
                 } else {
                     song.setTransposition(0);
                 }
+
+                // fill other fields
 
                 band.getSongs().add(song);
                 Database.songs.add(song);
